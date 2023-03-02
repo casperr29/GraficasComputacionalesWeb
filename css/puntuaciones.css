@@ -1,36 +1,131 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background:linear-gradient(to right, #5055ec, #7478e7 );
-    font-family: consolas;
-  }
-
-  .styled-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 2rem;
-    color:#77caff;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(to right, #5055ec, #7478e7);
+  font-family: consolas;
+  display: flex;
 }
 
-.styled-table thead tr {
-    background-color: #0a0c4d;
-    color: #77caff;
-    text-align: left;
+#main-table-container {
+  height: 20rem;
+  width: 100%;
 }
 
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-    
+.tableobjetos {
+  border-collapse: collapse;
+  margin: 1.4rem 1rem;
+  font-size: 2rem;
+  color: #77caff;
+  width: 30rem;
+  /* min-width: 20rem; */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.styled-table tbody tr {
-    background-color: #0a0c4d;
+.tableobjetos thead tr {
+  background-color: #0a0c4d;
+  color: #77caff;
+  text-align: left;
 }
 
+.tableobjetos th,
+.tableobjetos td {
+  padding: 12px 15px;
+}
+
+.tableobjetos tbody tr {
+  background-color: #0a0c4d;
+}
+
+.tabletiempo {
+  border-collapse: collapse;
+  margin: 1.4rem 1rem;
+  font-size: 2rem;
+  color: #77caff;
+  /* min-width: 20rem; */
+  width: 30rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.tabletiempo thead tr {
+  background-color: #0a0c4d;
+  color: #77caff;
+  text-align: left;
+}
+
+.tabletiempo th,
+.tabletiempo td {
+  padding: 12px 15px;
+}
+
+.tabletiempo tbody tr {
+  background-color: #0a0c4d;
+}
+
+.btn-neon {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #fff;
+  letter-spacing: 4px;
+  text-decoration: none;
+  font-size: 24px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+.btn-neon:hover {
+  background: #0a0c4d;
+  box-shadow: 0 0 10px #0a0c4d, 0 0 40px #0a0c4d, 0 0 80px #0a0c4d;
+  transition-delay: 1s;
+}
+.btn-neon span {
+  position: absolute;
+  display: block;
+}
+#span1 {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0a0c4d);
+}
+.btn-neon:hover #span1 {
+  left: 100%;
+  transition: 1s;
+}
+#span3 {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #0a0c4d);
+}
+.btn-neon:hover #span3 {
+  right: 100%;
+  transition: 1s;
+  transition-delay: 0.5s;
+}
+#span2 {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #0a0c4d);
+}
+.btn-neon:hover #span2 {
+  top: 100%;
+  transition: 1s;
+  transition-delay: 0.25s;
+}
+#span4 {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #0a0c4d);
+}
+.btn-neon:hover #span4 {
+  bottom: 100%;
+  transition: 1s;
+  transition-delay: 0.75s;
+}
