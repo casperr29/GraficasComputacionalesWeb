@@ -6,6 +6,39 @@ body {
     align-items: center;
     height: 100vh;
     background-image: url('../imagenes/MPfondo.png');
+    background-position: center;
     font-family: consolas;
 
+  }
+  
+  html {
+    font-size: calc(7px + 0.390625vw);
+  }
+  
+  #inferior {
+    color: #fff;
+    background: #000;
+    width: 100%;
+    align-self: flex-end;
+    /* position: absolute; 
+    left: 0px;
+    right: 0px;
+    bottom: 0px;*/
+    font-family: consolas;
+    text-shadow: 0 0 0.5rem rgb(113, 234, 255), 0 0 2rem rgb(113, 234, 255),
+      0 0 4rem rgb(113, 234, 255);
+    z-index: 0;
+    padding: 1rem 1rem 1rem 1rem;
+  }
+  
+  #inferior > div {
+    width: 20rem;
+  }
+  
+  /* #inferior > a {
+    width: 20rem;
+  } */
+  
+  #powerup-img {
+    width: 8rem;
   }
