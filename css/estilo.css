@@ -1,0 +1,171 @@
+html {
+    height: 100%;
+}
+
+:root {
+    --purple: #67597a;
+    --bone: #fef9ef;
+    --green: #719662;
+    --lightBlue: #17c3b2;
+    --yellow: #ffcb77;
+    --pink: #fe6d73;
+}
+
+body {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Delius Unicase', cursive;
+}
+
+.backHome {
+    background: var(--purple);
+    background: -moz-linear-gradient(0deg, rgba(103, 89, 122) 0%, rgba(254,249,239,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(103, 89, 122) 0%, rgba(254,249,239,1) 100%);
+    background: linear-gradient(0deg, rgba(103, 89, 122) 0%, rgba(254,249,239,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#67597a",endColorstr="#fef9ef",GradientType=1);
+}
+
+ .backGame {
+    background: var(--green);
+    background: -moz-linear-gradient(0deg, rgb(119, 79, 128) 0%, rgba(254,249,239,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgb(132, 86, 136) 0%, rgba(254,249,239,1) 100%);
+    background: linear-gradient(0deg, rgb(148, 98, 150) 0%, rgba(254,249,239,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#69ad60",endColorstr="#fef9ef",GradientType=1);
+}
+
+.backSettings {
+    background: var(--lightBlue);
+    background: -moz-linear-gradient(0deg, rgba(23, 195, 178) 0%, rgba(254,249,239,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(23, 195, 178) 0%, rgba(254,249,239,1) 100%);
+    background: linear-gradient(0deg, rgba(23, 195, 178) 0%, rgba(254,249,239,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#17c3b2",endColorstr="#fef9ef",GradientType=1);
+}
+
+.backPoints {
+    background: var(--yellow);
+    background: -moz-linear-gradient(0deg, rgba(255, 203, 119) 0%, rgba(254,249,239,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(255, 203, 119) 0%, rgba(254,249,239,1) 100%);
+    background: linear-gradient(0deg, rgba(255, 203, 119) 0%, rgba(254,249,239,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffcb77",endColorstr="#fef9ef",GradientType=1);
+}
+
+.backPink {
+    background: var(--pink);
+    background: -moz-linear-gradient(0deg, rgba(254, 109, 115) 0%, rgba(254,249,239,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(254, 109, 115) 0%, rgba(254,249,239,1) 100%);
+    background: linear-gradient(0deg, rgba(254, 109, 115) 0%, rgba(254,249,239,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fe6d73",endColorstr="#fef9ef",GradientType=1);
+}
+
+#home{
+    background-image: url(/assets/img/backgroundWLogo.png);
+    height: 720px;
+    width: 1280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#setting{
+    background-color: darkgoldenrod;
+    background-image: url(/assets/img/backgroundSettings.png);
+    height: 720px;
+    width: 1280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    text-align: center;
+}
+
+li {
+    margin: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    -webkit-text-stroke: 2px var(--pink);
+    padding: 12px;
+}
+.controls{
+    height: 200px;
+    background-color: white;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 30px;
+}
+
+.controlsbuttons{
+    text-decoration: none;
+    color: white;
+    -webkit-text-stroke: 2px var(--pink);
+}
+a:hover {
+    background-image: url(/assets/img/select.png);
+    background-size: cover;
+}
+.selected {
+    background-color: #17c3b2;
+    background-size: cover;
+}
+
+#listilla {
+    margin-top: 200px;
+    font-size: x-large;
+}
+
+#score {
+    color: var(--purple);
+    font-size: 50px;
+    margin: 20px;
+}
+
+#container {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+    text-align: end;
+}
+
+#container2 {
+    position: absolute;
+    width: 1280px;
+    height: 720px;
+}
+
+#lifes {
+    color: var(--pink);
+    font-size: 50px;
+    margin: 20px;
+}
+
+.btnCute {
+    background: none;
+    border: 0;
+    font-family: 'Delius Unicase', cursive;
+    color: white;
+    font-size: x-large;
+    -webkit-text-stroke: 2px var(--pink);
+    padding: 12px;
+}
+
+.btnCute:hover {
+    background-image: url(/assets/img/select.png);
+    background-size: cover;
+}
+
+.swal2-radio {
+	flex-direction: column;
+    background-color: #8d474700 !important;
+}
+
+.cuteFont {
+    font-family: 'Delius Unicase', cursive;
+}

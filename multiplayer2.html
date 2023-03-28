@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilo.css">
+    <link rel="shortcut icon" href="/assets/img/happy-orange_99796.ico" type="image/x-icon">
+    <title>Multiplayer</title>
+</head>
+
+<body class="backGame">
+    <!--
+        <script src="../js/threejs/three.js"></script>
+    -->
+    <script type="module" id="lvl1">
+        import * as THREE from "/js/three.module.js";
+        import { OrbitControls } from "/js/OrbitControls.js";
+        import { GLTFLoader } from "/js/GLTFLoader.js";
+        import { FBXLoader } from "/js/FBXLoader.js";
+
+        ////////////////////////variables////////////////////////
+        var clock, deltaTime;
+        var miniWindowSize = { width: 1280, height: 720 };
+
+        var right1=false,left1=false,right2=false,left2=false;
+        ////////////////////////loaders////////////////////////
+        const backgroundLoader = new THREE.TextureLoader();
+        const fbxLoader = new FBXLoader();
+        const gltfLoader = new GLTFLoader();
+
+        ////////////////////////setup scene////////////////////////
+        clock = new THREE.Clock();
+        const scene = new THREE.Scene();
+        scene.background = backgroundLoader.load('/imagenes/MPFondo.png');
+        const camera = new THREE.PerspectiveCamera(50, miniWindowSize.width / miniWindowSize.height);
+        camera.position.set(0, 0, 180);
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(miniWindowSize.width, miniWindowSize.height);
+        document.body.appendChild(renderer.domElement);
+        //const cameraControl = new OrbitControls(camera, renderer.domElement)
+
+       
+      
+
+        ////// Players //////
+
+        fbxLoader.load(
+            '/assets/free_car_1.fbx',
+            (rover) => {
+                rover.position.set(65, -75, 0);
+                scene.add(rover);
+                rover.name = "rover";
+
+            }
+        );
+
+        fbxLoader.load(
+            '/assets/free_car_1.fbx',
+            (lolly) => {
+                lolly.position.set(-65, -75, 0);
+                scene.add(lolly);
+                lolly.name = "lolly";
+
+            }
+        );
+
+        ////////////////////////luces////////////////////////
+        const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
+        directionalLight.position.set(30, 30, 0);
+        //scene.add(directionalLight);
+        const ambientlight = new THREE.AmbientLight();
+        scene.add(ambientlight);
+
+        ////////////////////////movement////////////////////////
+        function movis(obj1, obj2) {
+            document.onkeydown = function (e) {
+                
+                if (e.keyCode === 37) {
+                    
+                    left1=true;
+                }
+                if (e.keyCode === 39) {
+                   
+                    right1=true;
+                }
+                if (e.keyCode === 65) {
+                   
+                    left2=true;
+                }
+                if (e.keyCode === 68) {
+                    
+                    right2=true;
+                }
+            }
+            document.onkeyup = function (e) {
+                
+                if (e.keyCode === 37) {
+                    left1=false;
+                }
+                if (e.keyCode === 39) {
+                    right1=false;
+                }
+                if (e.keyCode === 65) {
+                    left2=false;
+                }
+                if (e.keyCode === 68) {
+                    right2=false;
+                }
+            }
+        }
+      /*   function movis(obj1, obj2) {
+            document.onkeydown = function (e) {
+                if (e.keyCode === 37) {
+                    obj1.position.x -= 2;
+                    obj1.rotation.y = Math.PI / -2;
+                    if (obj1.position.x < -125) {
+                        obj1.position.x = -125;
+                    }
+                }
+                if (e.keyCode === 39) {
+                    obj1.position.x += 2;
+                    obj1.rotation.y = Math.PI / 2;
+                    if (obj1.position.x > 125) {
+                        obj1.position.x = 125;
+                    }
+                }
+                if (e.keyCode === 65) {
+                    obj2.position.x -= 2;
+                    obj2.rotation.y = Math.PI / -2;
+                    if (obj2.position.x < -125) {
+                        obj2.position.x = -125;
+                    }
+                }
+                if (e.keyCode === 68) {
+                    obj2.position.x += 2;
+                    obj2.rotation.y = Math.PI / 2;
+                    if (obj2.position.x > 125) {
+                        obj2.position.x = 125;
+                    }
+                }
+            }
+        } */
+        
+
+        function animate() {
+            requestAnimationFrame(animate);
+            //character.rotation.x += 0.01;
+            //character.rotation.y += 0.01;
+            var rover = scene.getObjectByName('rover');
+            var lolly = scene.getObjectByName('lolly');
+            movis(rover,lolly);
+
+           
+            if (left1==true) {
+                rover.position.x -= 1;
+                    if (rover.position.x < -125) {                  
+                        rover.position.x = -125;
+                    }
+                }
+                if (right1==true) {
+                    rover.position.x += 1;
+                    if (rover.position.x > 125) {
+                        rover.position.x = 125;
+                    }
+                }
+                if (left2==true) {
+                    lolly.position.x -= 1;
+                    if (lolly.position.x < -125) {
+                        lolly.position.x = -125;
+                    }
+                }
+                if (right2==true) {
+                    lolly.position.x += 1;
+                    if (lolly.position.x > 125) {
+                        lolly.position.x = 125;
+                    }
+                }
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
