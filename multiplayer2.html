@@ -54,6 +54,7 @@
                 scene.add(rover);
                 rover.name = "rover";
                 rover.scale.multiplyScalar(8);
+                
             }
         );
 
@@ -61,9 +62,11 @@
             '/assets/free_car_1.fbx',
             (lolly) => {
                 lolly.position.set(-65, -75, 0);
+                
                 scene.add(lolly);
                 lolly.name = "lolly";
                 lolly.scale.multiplyScalar(8);
+                
 
             }
         );
@@ -148,10 +151,12 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            //character.rotation.x += 0.01;
-            //character.rotation.y += 0.01;
+          //  character.rotation.x += 0.01;
+          // character.rotation.y += 0.01;
             var rover = scene.getObjectByName('rover');
             var lolly = scene.getObjectByName('lolly');
+            lolly.rotation.y = 10;
+            rover.rotation.y = 160;
             movis(rover,lolly);
 
            
