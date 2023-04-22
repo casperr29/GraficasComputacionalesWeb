@@ -17,7 +17,10 @@
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
-    />
+    />  
+  </head>
+  <body>
+    
     <script type="module" id="lvl1">
         import * as THREE from "/js/three.module.js";
         import { OrbitControls } from "/js/OrbitControls.js";
@@ -37,7 +40,7 @@
         ////////////////////////setup scene////////////////////////
         clock = new THREE.Clock();
         const scene = new THREE.Scene();
-        scene.background = backgroundLoader.load('/imagenes/MPFondo.png');
+        scene.background = backgroundLoader.load('/imagenes/MPFondo1.png');
         const camera = new THREE.PerspectiveCamera(50, miniWindowSize.width / miniWindowSize.height);
         camera.position.set(0, 0, 180);
   
@@ -56,13 +59,10 @@
         fbxLoader.load(
             '/assets/free_car_1.fbx',
             (rover) => {
-                rover.position.set(77, 0, 0);
-                rover.scale.set(8, 8, 8);
-  
-             
-              rover.rotateY(47.01);
-              rover.rotateZ(0);
-   
+                rover.position.set(65, -58, 0);
+                rover.scale.set(12, 12, 12);
+                rover.rotateY(46.65);
+                rover.rotateZ(0);
                 scene.add(rover);
                 rover.name = "rover";
   
@@ -72,11 +72,10 @@
         fbxLoader.load(
             '/assets/free_car_1.fbx',
             (lolly) => {
-                lolly.position.set(-77, 0, 0);
-                lolly.scale.set(8, 8, 8);
+                lolly.position.set(-65, -58, 0);
+                lolly.scale.set(12, 12, 12);
                 lolly.rotateY(35);
-                lolly.rotateZ(.2);
-  
+                lolly.rotateZ(0);
                 scene.add(lolly);
                 lolly.name = "lolly";
   
@@ -199,11 +198,6 @@
   
         animate();
     </script>
-    
-  </head>
-  <body>
-    
-
 
 
    
