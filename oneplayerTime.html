@@ -97,6 +97,33 @@
           }
       );
 
+      fbxLoader.load(
+          '/assets/cone2_fbx.fbx',
+          (cono) => {
+              cono.position.set(25, -25, 0);
+              cono.scale.set(.4, .4, .4);
+
+              cono.rotateX(0.349);
+              scene.add(cono);
+              cono.name = "cono";
+
+          }
+      );
+
+      fbxLoader.load(
+          '/assets/cone2_fbx.fbx',
+          (cono1) => {
+              cono1.position.set(39, -25, 0);
+              cono1.scale.set(.4, .4, .4);
+
+              cono1.rotateX(0.349);
+              scene.add(cono1);
+              cono1.name = "cono1";
+
+          }
+      );
+
+
       ////////////////////////luces////////////////////////
       const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
       directionalLight.position.set(30, 30, 0);
@@ -181,6 +208,11 @@
         <span id="span4"></span>
         PAUSAR JUEGO
       </a>
+
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h2 class="text-light text-center">Tiempo</h2>
+        <h3 class="text-light text-center">01:02</h3>
+      </div>
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h2 class="text-light text-center">Power-Up</h2>
