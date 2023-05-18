@@ -72,45 +72,48 @@
           }
       );
 
-      ////// Objetos //////
-      fbxLoader.load(
-          '/assets/Gema_ED.fbx',
+        
+    fbxLoader.load(
+         '/assets/Gema_ED.fbx',
           (gem) => {
-              gem.position.set(-45, -30, 0);
-              gem.scale.set(.1, .1, .1);
-              //gem.rotateX(-1.396);
-              scene.add(gem);
-              gem.name = "gem";
 
-          }
-      );
+      const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+      gem.position.set(x,1,1);
+      gem.rotation.x += 0.01;
+      gem.rotation.y += 0.01;
+      gem.scale.set(.1, .1, .1);
+      scene.add(gem);
+}
+    )
 
       fbxLoader.load(
           '/assets/cone2_fbx.fbx',
           (cono) => {
-              cono.position.set(25, -10, 0);
-              cono.scale.set(.4, .4, .4);
-
-              cono.rotateX(0.349);
-              scene.add(cono);
-              cono.name = "cono";
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+            cono.position.set(x,1,1);
+            cono.rotation.x += 0.01;
+            cono.rotation.y += 0.01;
+            cono.scale.set(.4, .4, .4);
+      scene.add(cono);
 
           }
       );
-      function createGem(){
+    
       fbxLoader.load(
           '/assets/cone2_fbx.fbx',
           (cono1) => {
-              cono1.position.set(39, -10, 0);
-              cono1.scale.set(.4, .4, .4);
-
-              cono1.rotateX(0.349);
-              scene.add(cono1);
-              cono1.name = "cono1";
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+            cono1.position.set(x,1,1);
+            cono1.rotation.x += 0.01;
+            cono1.rotation.y += 0.01;
+            cono1.scale.set(.4, .4, .4);
+      scene.add(cono1);
 
           }
       );
-        }
+
+
+
 
       ////////////////////////luces////////////////////////
       const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
@@ -183,6 +186,8 @@
       }
 
       animate();
+
+
   </script>
 
     <div

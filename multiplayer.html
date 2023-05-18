@@ -87,53 +87,51 @@
     fbxLoader.load(
           '/assets/clocknowall.fbx',
           (clock) => {
-              clock.position.set(-65, -25, 0);
-              clock.scale.set(1.5, 1.5, 1.5);
-
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(240));
+            clock.position.set(x,1,1);
               clock.rotateY(-1.571);
               scene.add(clock);
               clock.name = "clock";
 
+              clock.scale.set(1.5, 1.5, 1.5);
           }
-        );
-
-        fbxLoader.load(
+      );
+      fbxLoader.load(
           '/assets/ARROW.fbx',
           (arrow) => {
-              arrow.position.set(100, -30, 0);
-              arrow.scale.set(.06, .1, 1);
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(240));
+            arrow.position.set(x,1,1);
+            arrow.rotation.x += 0.01;
+            arrow.rotation.y += 0.01;
+            arrow.scale.set(.03, .03, .03);
+      scene.add(arrow);
 
-              arrow.rotateY(3.142);
-              scene.add(arrow);
-              arrow.name = "arrow";
-
-          }
-        );
-
-        fbxLoader.load(
-          '/assets/cone2_fbx.fbx',
-          (cono) => {
-              cono.position.set(-95, -10, 0);
-              cono.scale.set(.4, .4, .4);
-
-              cono.rotateX(0.349);
-
-              scene.add(cono);
-              cono.name = "cono";
 
           }
       );
 
       fbxLoader.load(
           '/assets/cone2_fbx.fbx',
+          (cono) => {
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(240));
+            cono.position.set(x,1,1);
+            cono.rotation.x += 0.01;
+            cono.rotation.y += 0.01;
+            cono.scale.set(.4, .4, .4);
+      scene.add(cono);
+
+          }
+      );
+    
+      fbxLoader.load(
+          '/assets/cone2_fbx.fbx',
           (cono1) => {
-              cono1.position.set(-110, -10, 0);
-              cono1.scale.set(.4, .4, .4);
-
-              cono1.rotateX(0.349);
-
-              scene.add(cono1);
-              cono1.name = "cono1";
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(240));
+            cono1.position.set(x,1,1);
+            cono1.rotation.x += 0.01;
+            cono1.rotation.y += 0.01;
+            cono1.scale.set(.4, .4, .4);
+      scene.add(cono1);
 
           }
       );
