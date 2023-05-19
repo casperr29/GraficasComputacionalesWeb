@@ -19,6 +19,7 @@
       rel="stylesheet"
     />
   </head>
+  <script></script>
   <body>
     <div
       id="OnePlayerBG"
@@ -76,16 +77,47 @@
       function BGNeon() {
         document.getElementById("OnePlayerBG").style.backgroundImage =
           "url(imagenes/OPfondo1.png)";
+        localStorage.setItem("currentTheme", 1);
       }
 
       function BGBosque() {
         document.getElementById("OnePlayerBG").style.backgroundImage =
           "url(imagenes/OPfondo2.png)";
+        localStorage.setItem("currentTheme", 2);
       }
 
       function BGPlaya() {
         document.getElementById("OnePlayerBG").style.backgroundImage =
           "url(imagenes/OPfondo3.png)";
+        localStorage.setItem("currentTheme", 3);
+      }
+
+      const currentTheme = localStorage.getItem("currentTheme");
+
+      switch (currentTheme) {
+        case "1":
+          document.getElementById("OnePlayerBG").style.backgroundImage =
+            "url(imagenes/OPfondo1.png)";
+
+          break;
+
+        case "2":
+          document.getElementById("OnePlayerBG").style.backgroundImage =
+            "url(imagenes/OPfondo2.png)";
+
+          break;
+
+        case "3":
+          document.getElementById("OnePlayerBG").style.backgroundImage =
+            "url(imagenes/OPfondo3.png)";
+
+          break;
+
+        default:
+          document.getElementById("OnePlayerBG").style.backgroundImage =
+            "url(imagenes/OPfondo1.png)";
+
+          break;
       }
     </script>
   </body>

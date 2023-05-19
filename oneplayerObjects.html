@@ -20,7 +20,6 @@
     />
   </head>
   <body>
-
     <script type="module" id="lvl1">
       import * as THREE from "/js/three.module.js";
       import { OrbitControls } from "/js/OrbitControls.js";
@@ -29,9 +28,15 @@
 
       ////////////////////////variables////////////////////////
       var clock, deltaTime;
-      var miniWindowSize = { width: window.innerWidth, height: window.innerHeight};
+      var miniWindowSize = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
 
-      var right1=false,left1=false,right2=false,left2=false;
+      var right1 = false,
+        left1 = false,
+        right2 = false,
+        left2 = false;
       ////////////////////////loaders////////////////////////
       const backgroundLoader = new THREE.TextureLoader();
       const fbxLoader = new FBXLoader();
@@ -40,84 +45,92 @@
       ////////////////////////setup scene////////////////////////
       clock = new THREE.Clock();
       const scene = new THREE.Scene();
-      scene.background = backgroundLoader.load('/imagenes/OPFondo1.png');
-      const camera = new THREE.PerspectiveCamera(50, miniWindowSize.width / miniWindowSize.height);
+      const currentTheme = localStorage.getItem("currentTheme");
+
+      switch (currentTheme) {
+        case "1":
+          scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");
+
+          break;
+
+        case "2":
+          scene.background = backgroundLoader.load("/imagenes/OPFondo2.png");
+
+          break;
+
+        case "3":
+          scene.background = backgroundLoader.load("/imagenes/OPFondo3.png");
+
+          break;
+
+        default:
+          scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");
+          break;
+      }
+      const camera = new THREE.PerspectiveCamera(
+        50,
+        miniWindowSize.width / miniWindowSize.height
+      );
       camera.position.set(0, 0, 180);
 
-      const renderer = new THREE.WebGLRenderer({precision:"mediump"});
+      const renderer = new THREE.WebGLRenderer({ precision: "mediump" });
       renderer.setClearColor(new THREE.Color(0, 0, 0));
       renderer.setPixelRatio(miniWindowSize.width / miniWindowSize.height);
       renderer.setSize(miniWindowSize.width, miniWindowSize.height);
       document.body.appendChild(renderer.domElement);
       //const cameraControl = new OrbitControls(camera, renderer.domElement)
 
-  
-    
-
       ////// Players //////
 
-      fbxLoader.load(
-          '/assets/free_car_1.fbx',
-          (rover) => {
-              rover.position.set(0, -58, 0);
-              rover.scale.set(15, 15, 15);
+      fbxLoader.load("/assets/free_car_1.fbx", (rover) => {
+        rover.position.set(0, -58, 0);
+        rover.scale.set(15, 15, 15);
 
-           
-              rover.rotateY(3.142);
-              rover.rotateZ(0);
- 
-              scene.add(rover);
-              rover.name = "rover";
+        rover.rotateY(3.142);
+        rover.rotateZ(0);
 
-          }
-      );
+        scene.add(rover);
+        rover.name = "rover";
+      });
 
-        
-    fbxLoader.load(
-         '/assets/Gema_ED.fbx',
-          (gem) => {
+      fbxLoader.load("/assets/Gema_ED.fbx", (gem) => {
+        const [x, y, z] = Array(3)
+          .fill()
+          .map(() => THREE.MathUtils.randFloatSpread(100));
+        gem.position.set(x, 1, 1);
+        gem.rotation.x += 0.01;
+        gem.rotation.y += 0.01;
+        gem.scale.set(0.1, 0.1, 0.1);
+        scene.add(gem);
+        gem.name = "gem";
+      });
 
-      const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-      gem.position.set(x,1,1);
-      gem.rotation.x += 0.01;
-      gem.rotation.y += 0.01;
-      gem.scale.set(.1, .1, .1);
-      scene.add(gem);
-      gem.name = "gem";
-}
-    )
+      fbxLoader.load("/assets/cone2_fbx.fbx", (cono) => {
+        const [x, y, z] = Array(3)
+          .fill()
+          .map(() => THREE.MathUtils.randFloatSpread(100));
+        cono.position.set(x, 1, 1);
+        cono.rotation.x += 0.01;
+        cono.rotation.y += 0.01;
+        cono.scale.set(0.4, 0.4, 0.4);
+        scene.add(cono);
+        cono.name = "cono";
+      });
 
-      fbxLoader.load(
-          '/assets/cone2_fbx.fbx',
-          (cono) => {
-            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-            cono.position.set(x,1,1);
-            cono.rotation.x += 0.01;
-            cono.rotation.y += 0.01;
-            cono.scale.set(.4, .4, .4);
-      scene.add(cono);
-      cono.name = "cono";
-          }
-      );
-    
-      fbxLoader.load(
-          '/assets/cone2_fbx.fbx',
-          (cono1) => {
-            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-            cono1.position.set(x,1,1);
-            cono1.rotation.x += 0.01;
-            cono1.rotation.y += 0.01;
-            cono1.scale.set(.4, .4, .4);
-      scene.add(cono1);
-      cono1.name = "cono1";
-          }
-      );
-
-
-
+      fbxLoader.load("/assets/cone2_fbx.fbx", (cono1) => {
+        const [x, y, z] = Array(3)
+          .fill()
+          .map(() => THREE.MathUtils.randFloatSpread(100));
+        cono1.position.set(x, 1, 1);
+        cono1.rotation.x += 0.01;
+        cono1.rotation.y += 0.01;
+        cono1.scale.set(0.4, 0.4, 0.4);
+        scene.add(cono1);
+        cono1.name = "cono1";
+      });
 
       ////////////////////////luces////////////////////////
-      const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
+      const directionalLight = new THREE.DirectionalLight(0xffffff);
       directionalLight.position.set(30, 30, 0);
       //scene.add(directionalLight);
       const ambientlight = new THREE.AmbientLight();
@@ -125,95 +138,91 @@
 
       ////////////////////////movement////////////////////////
       function movis(obj1, obj2) {
-            document.onkeydown = function (e) {
-                
-                if (e.keyCode === 37) {
-                    
-                    left1=true;
-                }
-                if (e.keyCode === 39) {
-                   
-                    right1=true;
-                }
-                if (e.keyCode === 65) {
-                   
-                    left2=true;
-                }
-                if (e.keyCode === 68) {
-                    
-                    right2=true;
-                }
-            }
-            document.onkeyup = function (e) {
-                
-                if (e.keyCode === 37) {
-                    left1=false;
-                }
-                if (e.keyCode === 39) {
-                    right1=false;
-                }
-                if (e.keyCode === 65) {
-                    left2=false;
-                }
-                if (e.keyCode === 68) {
-                    right2=false;
-                }
-            }
-        }
-   
+        document.onkeydown = function (e) {
+          if (e.keyCode === 37) {
+            left1 = true;
+          }
+          if (e.keyCode === 39) {
+            right1 = true;
+          }
+          if (e.keyCode === 65) {
+            left2 = true;
+          }
+          if (e.keyCode === 68) {
+            right2 = true;
+          }
+        };
+        document.onkeyup = function (e) {
+          if (e.keyCode === 37) {
+            left1 = false;
+          }
+          if (e.keyCode === 39) {
+            right1 = false;
+          }
+          if (e.keyCode === 65) {
+            left2 = false;
+          }
+          if (e.keyCode === 68) {
+            right2 = false;
+          }
+        };
+      }
 
       function animate() {
-          requestAnimationFrame(animate);
-          //character.rotation.x += 0.01;
-          //character.rotation.y += 0.01;
-          var rover = scene.getObjectByName('rover');
-         
-          movis(rover);
+        requestAnimationFrame(animate);
+        //character.rotation.x += 0.01;
+        //character.rotation.y += 0.01;
+        var rover = scene.getObjectByName("rover");
 
-          ///////MOVIMIENTOS DE GEMA Y OBSTACULOS //////////
-          var gem = scene.getObjectByName('gem');
-          gem.position.y -= 0.7;
-          if(gem.position.y<=-80){
-		      gem.position.y=1;
-          const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-            gem.position.set(x,1,1);}
+        movis(rover);
 
-          var cono = scene.getObjectByName('cono');
-          cono.position.y -= 0.7;
-          if(cono.position.y<=-80){
-            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-            cono.position.set(x,1,1);}
+        ///////MOVIMIENTOS DE GEMA Y OBSTACULOS //////////
+        var gem = scene.getObjectByName("gem");
+        gem.position.y -= 0.7;
+        if (gem.position.y <= -80) {
+          gem.position.y = 1;
+          const [x, y, z] = Array(3)
+            .fill()
+            .map(() => THREE.MathUtils.randFloatSpread(100));
+          gem.position.set(x, 1, 1);
+        }
 
-          var cono1 = scene.getObjectByName('cono1');
-          cono1.position.y -= 0.7;
-          if(cono1.position.y<=-80){
-            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-            cono1.position.set(x,1,1);}
+        var cono = scene.getObjectByName("cono");
+        cono.position.y -= 0.7;
+        if (cono.position.y <= -80) {
+          const [x, y, z] = Array(3)
+            .fill()
+            .map(() => THREE.MathUtils.randFloatSpread(100));
+          cono.position.set(x, 1, 1);
+        }
 
+        var cono1 = scene.getObjectByName("cono1");
+        cono1.position.y -= 0.7;
+        if (cono1.position.y <= -80) {
+          const [x, y, z] = Array(3)
+            .fill()
+            .map(() => THREE.MathUtils.randFloatSpread(100));
+          cono1.position.set(x, 1, 1);
+        }
 
-         /////MOVIMIENTO DE CARROS////
-          if (left1==true) {
-              rover.position.x -= 1;
-                  if (rover.position.x < -125) {                  
-                      rover.position.x = -125;
-                  }
-              }
-              if (right1==true) {
-                  rover.position.x += 1;
-                  if (rover.position.x > 125) {
-                      rover.position.x = 125;
-                  }
-              }
-          renderer.render(scene, camera);
-
-
-
+        /////MOVIMIENTO DE CARROS////
+        if (left1 == true) {
+          rover.position.x -= 1;
+          if (rover.position.x < -125) {
+            rover.position.x = -125;
+          }
+        }
+        if (right1 == true) {
+          rover.position.x += 1;
+          if (rover.position.x > 125) {
+            rover.position.x = 125;
+          }
+        }
+        renderer.render(scene, camera);
       }
 
       animate();
-
-
-  </script>
+    </script>
 
     <div
       id="inferior"
@@ -266,7 +275,7 @@
       </div>
     </div>
 
-   <!--  <div class="row">
+    <!--  <div class="row">
         <audio controls autoplay>
             <source src ="assets/Musica y Efectos/KnightSpeed.mp3" type="audio/mp3">
         </audio>

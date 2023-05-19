@@ -19,13 +19,18 @@
       rel="stylesheet"
     />
   </head>
+  <script src="js/jquery.js"></script>
   <body>
     <div class="d-flex flex-column justify-content-center">
       <div class="logo d-flex justify-content-center">
         <img class="image" src="imagenes/crazyrazer1.png" />
       </div>
       <div class="d-flex flex-row justify-content-center">
-        <a href="oneplayerTime.html" class="btn-neon">
+        <a
+          href="#modalPlayerData"
+          class="btn-neon"
+          onclick="ingresarDatos(1, 'oneplayerTime')"
+        >
           <span id="span1"></span>
           <span id="span2"></span>
           <span id="span3"></span>
@@ -41,7 +46,11 @@
         </a>
       </div>
       <div class="d-flex flex-row justify-content-center">
-        <a href="oneplayerObjects.html" class="btn-neon">
+        <a
+          href="#modalPlayerData"
+          class="btn-neon"
+          onclick="ingresarDatos(1, 'oneplayerObjects')"
+        >
           <span id="span1"></span>
           <span id="span2"></span>
           <span id="span3"></span>
@@ -57,14 +66,18 @@
         </a>
       </div>
       <div class="d-flex flex-row justify-content-center">
-        <a href="multiplayer.html" class="btn-neon">
+        <a
+          href="#modalPlayerData"
+          class="btn-neon"
+          onclick="ingresarDatos(2, 'multiplayer')"
+        >
           <span id="span1"></span>
           <span id="span2"></span>
           <span id="span3"></span>
           <span id="span4"></span>
           CARRERAS (MULTIJUGADOR)
         </a>
-        <a href="#" class="btn-neon">
+        <a href="#modalPlayerData" class="btn-neon">
           <span id="span1"></span>
           <span id="span2"></span>
           <span id="span3"></span>
@@ -76,9 +89,109 @@
 
     <div class="row">
       <audio controls autoplay>
-          <source src ="assets/Musica y Efectos/KnightSpeed.mp3" type="audio/mp3">
+        <source
+          src="assets/Musica y Efectos/KnightSpeed.mp3"
+          type="audio/mp3"
+        />
       </audio>
-  </div>
+    </div>
+
+    <div
+      class="overlay d-flex justify-content-center align-items-center"
+      id="modalPlayerData"
+    >
+      <div
+        class="container-neon d-flex flex-column justify-content-center align-items-center position-relative"
+      >
+        <a href="#" class="close fs-1 text-light top-0 end-0">&times;</a>
+        <h3 class="display-6">HARCODED</h3>
+
+        <h4 class="fs-6">Jugador 1</h4>
+        <p class="error-txt-neon" id="#errorMsg1">Mensaje de error 1</p>
+        <input type="text" class="input-neon" />
+
+        <h4 class="fs-6">Jugador 2</h4>
+        <p class="error-txt-neon" id="#errorMsg2">Mensaje de error 2</p>
+        <input type="text" class="input-neon" />
+
+        <a href="index.html" class="btn-neon mb-3 w-50 fs-5">
+          <span id="span1"></span>
+          <span id="span2"></span>
+          <span id="span3"></span>
+          <span id="span4"></span>
+          Jugar
+        </a>
+        <a href="#" class="btn-neon fs-5">
+          <span id="span1"></span>
+          <span id="span2"></span>
+          <span id="span3"></span>
+          <span id="span4"></span>
+          Regresar
+        </a>
+      </div>
+    </div>
+
+    <script>
+      function ingresarDatos(players, redirection) {
+        $("#modalPlayerData").html("");
+        var content = "";
+
+        if (players == 1) {
+          content +=
+            '<div class="container-neon d-flex flex-column justify-content-center align-items-center position-relative" > <a href="#" class="close fs-1 text-light top-0 end-0">&times;</a> <h3 class="display-6 mb-4">Ingresa tu nombre</h3><p  class="error-txt-neon" id="errorMsg1">Mensaje de error 1</p><input id="playerName1" type="text" class="input-neon" />';
+        }
+        if (players == 2) {
+          content +=
+            '<div class="container-neon d-flex flex-column justify-content-center align-items-center position-relative" > <a href="#" class="close fs-1 text-light top-0 end-0">&times;</a> <h3 class="display-6 mb-4">Ingresa tu nombre</h3><h4 class="fs-6">Jugador 1</h4><p  class="error-txt-neon" id="errorMsg1">Mensaje de error 1</p><input id="playerName1" type="text" class="input-neon" /> <h4 class="fs-6">Jugador 2</h4><p  class="error-txt-neon" id="errorMsg2">Mensaje de error 2</p> <input id="playerName2" type="text" class="input-neon" />  ';
+        }
+
+        content +=
+          '<a href="#modalPlayerData" class="btn-neon mb-3 w-50 fs-5" onclick="validatePlayerName(' +
+          players +
+          ",'" +
+          redirection +
+          '\')"><span id="span1"></span> <span id="span2"></span> <span id="span3"></span> <span id="span4"></span> Jugar </a><a href="#" class=" btn-neon fs-5"><span id="span1"></span> <span id="span2"></span> <span id="span3"></span> <span id="span4"></span>  Regresar </a> </div>';
+
+        $("#modalPlayerData").html(content);
+
+        $("#errorMsg1").hide();
+        $("#errorMsg2").hide();
+
+        window.location.href = "#modalPlayerData";
+      }
+
+      function validatePlayerName(players, redirection) {
+        const playerName1 = $("#playerName1").val();
+        const playerName2 = $("#playerName2").val();
+
+        if (playerName1 == undefined || playerName1 == "") {
+          $("#playerName1").addClass("wrong-input-neon");
+          $("#errorMsg1").show();
+          $("#errorMsg1").text("Ingrese un nombre");
+          return;
+        }
+
+        $("#errorMsg1").hide();
+        $("#playerName1").removeClass("wrong-input-neon");
+
+        if (players == 2) {
+          if (playerName2 == undefined || playerName2 == "") {
+            $("#playerName2").addClass("wrong-input-neon");
+            $("#errorMsg2").show();
+            $("#errorMsg2").text("Ingrese un nombre");
+            return;
+          }
+        }
+
+        $("#errorMsg2").hide();
+        $("#playerName2").removeClass("wrong-input-neon");
+
+        localStorage.setItem("playerName1", playerName1);
+        localStorage.setItem("playerName2", playerName2);
+
+        window.location.href = redirection + ".html";
+      }
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

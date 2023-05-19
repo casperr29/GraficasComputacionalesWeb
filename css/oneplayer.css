@@ -6,7 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
+
   font-family: consolas;
 }
 
@@ -19,7 +19,7 @@ html {
   background: #000;
   width: 100%;
   align-self: flex-start;
-  position: absolute; 
+  position: absolute;
   font-family: consolas;
   text-shadow: 0 0 0.5rem rgb(113, 234, 255), 0 0 2rem rgb(113, 234, 255),
     0 0 4rem rgb(113, 234, 255);
