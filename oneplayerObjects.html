@@ -96,7 +96,7 @@
             cono.rotation.y += 0.01;
             cono.scale.set(.4, .4, .4);
       scene.add(cono);
-
+      cono.name = "cono";
           }
       );
     
@@ -109,7 +109,7 @@
             cono1.rotation.y += 0.01;
             cono1.scale.set(.4, .4, .4);
       scene.add(cono1);
-
+      cono1.name = "cono1";
           }
       );
 
@@ -170,10 +170,28 @@
          
           movis(rover);
 
+          ///////MOVIMIENTOS DE GEMA Y OBSTACULOS //////////
           var gem = scene.getObjectByName('gem');
-          gem.position.y -= 0.07;
+          gem.position.y -= 0.7;
+          if(gem.position.y<=-80){
+		      gem.position.y=1;
+          const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+            gem.position.set(x,1,1);}
 
-         
+          var cono = scene.getObjectByName('cono');
+          cono.position.y -= 0.7;
+          if(cono.position.y<=-80){
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+            cono.position.set(x,1,1);}
+
+          var cono1 = scene.getObjectByName('cono1');
+          cono1.position.y -= 0.7;
+          if(cono1.position.y<=-80){
+            const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+            cono1.position.set(x,1,1);}
+
+
+         /////MOVIMIENTO DE CARROS////
           if (left1==true) {
               rover.position.x -= 1;
                   if (rover.position.x < -125) {                  
