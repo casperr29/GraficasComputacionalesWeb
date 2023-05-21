@@ -1,15 +1,20 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
   background: linear-gradient(to right, #5055ec, #7478e7);
   font-family: consolas;
-  display: flex;
+  height: 100vh;
 }
 
 #main-table-container {
-  height: 20rem;
+  height: max-content;
   width: 100%;
+}
+
+.table_title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #0a0c4d;
 }
 
 .tableobjetos {
