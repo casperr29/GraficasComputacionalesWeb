@@ -198,5 +198,30 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '639285784292465',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v16.0'
+        });
+FB.api(
+  "6095824793840610/posts",
+  function (response){
+    if (response && !response.error){
+      /*handle the result*/
+      console.log(response);
+    }else{
+      console.error('error', response.error);
+    }
+  });
+
+      };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  
+
   </body>
 </html>
