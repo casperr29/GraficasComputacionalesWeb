@@ -8,10 +8,10 @@ $sql;
 
 if ($_POST) {
 
-    if (strlen($_POST['PLAYER_PLAYER_NAME']) >= 1 and strlen($_POST['PLAYER_SCORE']) >= 1) {
+    if (strlen($_POST['iPlayerName']) >= 1 and strlen($_POST['iPlayerScore']) >= 1) {
 
-        $PLAYER_NAME = $_POST['PLAYER_NAME'];
-        $PLAYER_SCORE = $_POST['PLAYER_SCORE'];
+        $PLAYER_NAME = $_POST['iPlayerName'];
+        $PLAYER_SCORE = $_POST['iPlayerScore'];
 
         switch ($_POST['tableIndex']) {
             case 1:
@@ -34,5 +34,7 @@ if ($_POST) {
 
 
         $result = mysqli_query($con, $sql);
+        header("index.html");
+        exit();
     }
 }

@@ -95,7 +95,10 @@ html {
   font-size: 24px;
   overflow: hidden;
   transition: 0.2s;
+  background-color: transparent;
+  border-color: transparent;
 }
+
 .btn-neon:hover {
   background: #7172af;
   box-shadow: 0 0 10px #7172af, 0 0 40px #7172af, 0 0 80px #7172af;
@@ -151,4 +154,13 @@ html {
   bottom: 100%;
   transition: 1s;
   transition-delay: 0.75s;
+}
+
+#modalSubmitScore > div {
+  height: 50rem;
+  width: 50rem;
+}
+
+#modalPlayerScore {
+  margin-bottom: 5rem;
 }
