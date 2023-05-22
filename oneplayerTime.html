@@ -45,6 +45,8 @@
       ////////////////////////setup scene////////////////////////
       clock = new THREE.Clock();
       const scene = new THREE.Scene();
+      const currentTheme = localStorage.getItem("currentTheme");
+
       switch (currentTheme) {
         case "1":
           scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");

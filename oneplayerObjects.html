@@ -20,6 +20,7 @@
     />
   </head>
   <body>
+    <script src="js/jquery.js"></script>
     <script type="module" id="lvl1">
       import * as THREE from "/js/three.module.js";
       import { OrbitControls } from "/js/OrbitControls.js";
@@ -27,7 +28,15 @@
       import { FBXLoader } from "/js/FBXLoader.js";
 
       ////////////////////////variables////////////////////////
-      var clock, deltaTime;
+      var scene;
+      var camera;
+      var renderer;
+      var rayCaster;
+
+      var clock;
+      var deltaTime;
+      var isPaused = false;
+
       var miniWindowSize = {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -37,104 +46,182 @@
         left1 = false,
         right2 = false,
         left2 = false;
+
+      var car_velocity = 50.0;
+      var obj_velocity = car_velocity * 0.7;
+      var player_score = 0;
+      var player_lifes = 3;
+      var keys = {};
       ////////////////////////loaders////////////////////////
       const backgroundLoader = new THREE.TextureLoader();
       const fbxLoader = new FBXLoader();
       const gltfLoader = new GLTFLoader();
 
+      //Material y mesh de prueba
+      var geometriaCubo = new THREE.BoxGeometry(10, 10, 10);
+      var geometriaPrismaRectangular = new THREE.BoxGeometry(50, 10, 5);
+      var materialCubo = new THREE.MeshLambertMaterial({
+        color: new THREE.Color(0, 0.6, 0.7),
+        wireframe: false,
+      });
+
+      var materialCuboInv = new THREE.MeshLambertMaterial({
+        color: new THREE.Color(0, 0.6, 0.7),
+        opacity: 0.0,
+        transparent: true,
+      });
+
+      //Objeto maestro de los items
+      var items = {
+        gems: "gems",
+        clocks: "clocks",
+        cones: "cones",
+        speed_ramps: "speed_ramps",
+      };
+      //Arreglo de cada tipo de item
+      items.gems = [];
+      items.clocks = [];
+      items.cones = [];
+      items.speed_ramps = [];
+
       ////////////////////////setup scene////////////////////////
-      clock = new THREE.Clock();
-      const scene = new THREE.Scene();
-      const currentTheme = localStorage.getItem("currentTheme");
 
-      switch (currentTheme) {
-        case "1":
-          scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");
+      $(document).ready(function () {
+        setUpScene();
 
-          break;
+        rayCaster = new THREE.Raycaster();
+      });
 
-        case "2":
-          scene.background = backgroundLoader.load("/imagenes/OPFondo2.png");
+      function addCollisionBox(item_type, asset) {
+        var assetColl = new THREE.Mesh(
+          geometriaPrismaRectangular,
+          materialCubo
+        );
+        assetColl.position.x = asset.position.x;
+        assetColl.position.z = asset.position.z;
 
-          break;
+        assetColl.taken = false;
+        assetColl.model = asset;
+        assetColl.parent = asset;
 
-        case "3":
-          scene.background = backgroundLoader.load("/imagenes/OPFondo3.png");
+        assetColl.itemType = item_type;
 
-          break;
-
-        default:
-          scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");
-          break;
+        items[item_type + "s"].push(assetColl);
+        scene.add(assetColl);
       }
-      const camera = new THREE.PerspectiveCamera(
-        50,
-        miniWindowSize.width / miniWindowSize.height
-      );
-      camera.position.set(0, 0, 180);
 
-      const renderer = new THREE.WebGLRenderer({ precision: "mediump" });
-      renderer.setClearColor(new THREE.Color(0, 0, 0));
-      renderer.setPixelRatio(miniWindowSize.width / miniWindowSize.height);
-      renderer.setSize(miniWindowSize.width, miniWindowSize.height);
-      document.body.appendChild(renderer.domElement);
-      //const cameraControl = new OrbitControls(camera, renderer.domElement)
+      function loadModels() {
+        ////// Players //////
 
-      ////// Players //////
+        fbxLoader.load("/assets/free_car_1.fbx", (rover) => {
+          rover.position.set(0, -58, 0);
+          rover.scale.set(15, 15, 15);
 
-      fbxLoader.load("/assets/free_car_1.fbx", (rover) => {
-        rover.position.set(0, -58, 0);
-        rover.scale.set(15, 15, 15);
+          rover.rotateY(3.142);
+          rover.rotateZ(0);
 
-        rover.rotateY(3.142);
-        rover.rotateZ(0);
+          scene.add(rover);
+          rover.name = "rover";
+        });
 
-        scene.add(rover);
-        rover.name = "rover";
-      });
+        ////// Items //////
 
-      fbxLoader.load("/assets/Gema_ED.fbx", (gem) => {
-        const [x, y, z] = Array(3)
-          .fill()
-          .map(() => THREE.MathUtils.randFloatSpread(100));
-        gem.position.set(x, 1, 1);
-        gem.rotation.x += 0.01;
-        gem.rotation.y += 0.01;
-        gem.scale.set(0.1, 0.1, 0.1);
-        scene.add(gem);
-        gem.name = "gem";
-      });
+        fbxLoader.load("/assets/Gema_ED.fbx", (gem) => {
+          const [x, y, z] = Array(3)
+            .fill()
+            .map(() => THREE.MathUtils.randFloatSpread(100));
+          gem.position.set(x, 1, 1);
+          gem.rotation.x += 0.01;
+          gem.rotation.y += 0.01;
+          gem.scale.set(0.1, 0.1, 0.1);
 
-      fbxLoader.load("/assets/cone2_fbx.fbx", (cono) => {
-        const [x, y, z] = Array(3)
-          .fill()
-          .map(() => THREE.MathUtils.randFloatSpread(100));
-        cono.position.set(x, 1, 1);
-        cono.rotation.x += 0.01;
-        cono.rotation.y += 0.01;
-        cono.scale.set(0.4, 0.4, 0.4);
-        scene.add(cono);
-        cono.name = "cono";
-      });
+          addCollisionBox("gem", gem);
 
-      fbxLoader.load("/assets/cone2_fbx.fbx", (cono1) => {
-        const [x, y, z] = Array(3)
-          .fill()
-          .map(() => THREE.MathUtils.randFloatSpread(100));
-        cono1.position.set(x, 1, 1);
-        cono1.rotation.x += 0.01;
-        cono1.rotation.y += 0.01;
-        cono1.scale.set(0.4, 0.4, 0.4);
-        scene.add(cono1);
-        cono1.name = "cono1";
-      });
+          scene.add(gem);
+          gem.name = "gem";
+        });
 
-      ////////////////////////luces////////////////////////
-      const directionalLight = new THREE.DirectionalLight(0xffffff);
-      directionalLight.position.set(30, 30, 0);
-      //scene.add(directionalLight);
-      const ambientlight = new THREE.AmbientLight();
-      scene.add(ambientlight);
+        fbxLoader.load("/assets/cone2_fbx.fbx", (cono) => {
+          const [x, y, z] = Array(3)
+            .fill()
+            .map(() => THREE.MathUtils.randFloatSpread(100));
+          cono.position.set(x, 1, 1);
+          cono.rotation.x += 0.01;
+          cono.rotation.y += 0.01;
+          cono.scale.set(0.4, 0.4, 0.4);
+
+          addCollisionBox("cone", cono);
+
+          scene.add(cono);
+          cono.name = "cono";
+        });
+
+        fbxLoader.load("/assets/cone2_fbx.fbx", (cono1) => {
+          const [x, y, z] = Array(3)
+            .fill()
+            .map(() => THREE.MathUtils.randFloatSpread(100));
+          cono1.position.set(x, 1, 1);
+          cono1.rotation.x += 0.01;
+          cono1.rotation.y += 0.01;
+          cono1.scale.set(0.4, 0.4, 0.4);
+
+          addCollisionBox("cone", cono1);
+
+          scene.add(cono1);
+          cono1.name = "cono1";
+        });
+      }
+
+      function setUpScene() {
+        clock = new THREE.Clock();
+        scene = new THREE.Scene();
+
+        const currentTheme = localStorage.getItem("currentTheme");
+
+        switch (currentTheme) {
+          case "1":
+            scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");
+
+            break;
+
+          case "2":
+            scene.background = backgroundLoader.load("/imagenes/OPFondo2.png");
+
+            break;
+
+          case "3":
+            scene.background = backgroundLoader.load("/imagenes/OPFondo3.png");
+
+            break;
+
+          default:
+            scene.background = backgroundLoader.load("/imagenes/OPFondo1.png");
+            break;
+        }
+        camera = new THREE.PerspectiveCamera(
+          50,
+          miniWindowSize.width / miniWindowSize.height
+        );
+        camera.position.set(0, 0, 180);
+
+        renderer = new THREE.WebGLRenderer({ precision: "mediump" });
+        renderer.setClearColor(new THREE.Color(0, 0, 0));
+        renderer.setPixelRatio(miniWindowSize.width / miniWindowSize.height);
+        renderer.setSize(miniWindowSize.width, miniWindowSize.height);
+        document.body.appendChild(renderer.domElement);
+        //const cameraControl = new OrbitControls(camera, renderer.domElement)
+
+        loadModels();
+
+        ////////////////////////luces////////////////////////
+        const directionalLight = new THREE.DirectionalLight(0xffffff);
+        directionalLight.position.set(30, 30, 0);
+        //scene.add(directionalLight);
+        const ambientlight = new THREE.AmbientLight();
+        scene.add(ambientlight);
+
+        animate();
+      }
 
       ////////////////////////movement////////////////////////
       function movis(obj1, obj2) {
@@ -150,6 +237,11 @@
           }
           if (e.keyCode === 68) {
             right2 = true;
+          }
+          if (e.keyCode === 80 || e.keyCode === 27) {
+            isPaused = !isPaused;
+            if (isPaused) window.location.href = "#modalPause";
+            else window.location.href = "#";
           }
         };
         document.onkeyup = function (e) {
@@ -168,60 +260,78 @@
         };
       }
 
+      function onKeyDown(event) {
+        keys[String.fromCharCode(event.keyCode)] = true;
+      }
+
+      function onKeyUp(event) {
+        keys[String.fromCharCode(event.keyCode)] = false;
+      }
+
       function animate() {
         requestAnimationFrame(animate);
         //character.rotation.x += 0.01;
         //character.rotation.y += 0.01;
+        deltaTime = clock.getDelta();
         var rover = scene.getObjectByName("rover");
 
         movis(rover);
 
+        if (isPaused) return;
+
         ///////MOVIMIENTOS DE GEMA Y OBSTACULOS //////////
         var gem = scene.getObjectByName("gem");
-        gem.position.y -= 0.7;
-        if (gem.position.y <= -80) {
-          gem.position.y = 1;
-          const [x, y, z] = Array(3)
-            .fill()
-            .map(() => THREE.MathUtils.randFloatSpread(100));
-          gem.position.set(x, 1, 1);
+        if (gem != undefined) {
+          gem.position.y -= obj_velocity * deltaTime;
+          if (gem.position.y <= -80) {
+            gem.position.y = 1;
+            const [x, y, z] = Array(3)
+              .fill()
+              .map(() => THREE.MathUtils.randFloatSpread(100));
+            gem.position.set(x, 1, 1);
+          }
         }
 
         var cono = scene.getObjectByName("cono");
-        cono.position.y -= 0.7;
-        if (cono.position.y <= -80) {
-          const [x, y, z] = Array(3)
-            .fill()
-            .map(() => THREE.MathUtils.randFloatSpread(100));
-          cono.position.set(x, 1, 1);
+        if (cono != undefined) {
+          cono.position.y -= obj_velocity * deltaTime;
+          if (cono.position.y <= -80) {
+            const [x, y, z] = Array(3)
+              .fill()
+              .map(() => THREE.MathUtils.randFloatSpread(100));
+            cono.position.set(x, 1, 1);
+          }
         }
 
         var cono1 = scene.getObjectByName("cono1");
-        cono1.position.y -= 0.7;
-        if (cono1.position.y <= -80) {
-          const [x, y, z] = Array(3)
-            .fill()
-            .map(() => THREE.MathUtils.randFloatSpread(100));
-          cono1.position.set(x, 1, 1);
+        if (cono1 != undefined) {
+          cono1.position.y -= obj_velocity * deltaTime;
+          if (cono1.position.y <= -80) {
+            const [x, y, z] = Array(3)
+              .fill()
+              .map(() => THREE.MathUtils.randFloatSpread(100));
+            cono1.position.set(x, 1, 1);
+          }
         }
 
         /////MOVIMIENTO DE CARROS////
         if (left1 == true) {
-          rover.position.x -= 1;
+          rover.position.x -= car_velocity * deltaTime;
           if (rover.position.x < -125) {
             rover.position.x = -125;
           }
         }
         if (right1 == true) {
-          rover.position.x += 1;
+          rover.position.x += car_velocity * deltaTime;
           if (rover.position.x > 125) {
             rover.position.x = 125;
           }
         }
+
+        //for (var i = 0; i < camera.rays.length; i++) {}
+
         renderer.render(scene, camera);
       }
-
-      animate();
     </script>
 
     <div
