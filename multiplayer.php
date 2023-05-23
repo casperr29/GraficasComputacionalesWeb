@@ -484,7 +484,7 @@
                     if (gem.position.y <= -80) {
                         const [x, y, z] = Array(3)
                             .fill()
-                            .map(() => THREE.Math.randFloatSpread(90));
+                            .map(() => THREE.Math.randFloatSpread(240));
                         gem.position.set(x, 10, obj_z_distance);
                     }
                 }
@@ -495,7 +495,7 @@
                     if (cono.position.y <= -80) {
                         const [x, y, z] = Array(3)
                             .fill()
-                            .map(() => THREE.Math.randFloatSpread(85));
+                            .map(() => THREE.Math.randFloatSpread(240));
                         cono.position.set(x, 5, obj_z_distance);
                     }
                 }
@@ -506,7 +506,7 @@
                     if (cono1.position.y <= -80) {
                         const [x, y, z] = Array(3)
                             .fill()
-                            .map(() => THREE.Math.randFloatSpread(85));
+                            .map(() => THREE.Math.randFloatSpread(240));
                         cono1.position.set(x, 15, obj_z_distance);
                     }
                 }
@@ -519,7 +519,7 @@
                     if (gem2.position.y <= -80) {
                         const [x, y, z] = Array(3)
                             .fill()
-                            .map(() => THREE.Math.randFloatSpread(90));
+                            .map(() => THREE.Math.randFloatSpread(240));
                         gem2.position.set(x, 10, obj_z_distance);
                     }
                 }
@@ -530,7 +530,7 @@
                     if (cono2.position.y <= -80) {
                         const [x, y, z] = Array(3)
                             .fill()
-                            .map(() => THREE.Math.randFloatSpread(85));
+                            .map(() => THREE.Math.randFloatSpread(240));
                         cono2.position.set(x, 5, obj_z_distance);
                     }
                 }
@@ -541,7 +541,7 @@
                     if (cono3.position.y <= -80) {
                         const [x, y, z] = Array(3)
                             .fill()
-                            .map(() => THREE.Math.randFloatSpread(85));
+                            .map(() => THREE.Math.randFloatSpread(240));
                         cono3.position.set(x, 15, obj_z_distance);
                     }
                 }
