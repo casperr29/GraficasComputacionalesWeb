@@ -1,38 +1,164 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: consolas;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: consolas;
+}
 
-  }
-  
-  html {
-    font-size: calc(3px + 0.390625vw);
-  }
-  
-  #inferior {
-    color: #fff;
-    background: #000;
-    width: 100%;
-    align-self: flex-start;
-    font-family: consolas;
-    text-shadow: 0 0 0.5rem rgb(113, 234, 255), 0 0 2rem rgb(113, 234, 255), 0 0 4rem rgb(113, 234, 255);
-    z-index: 0;
-    padding: 1rem 1rem 1rem 1rem;
-    position: absolute;
-  }
-  
-  #inferior > div {
-    width: 20rem;
-  }
-  
-  /* #inferior > a {
+html {
+  font-size: calc(3px + 0.390625vw);
+}
+
+#inferior {
+  color: #fff;
+  background: #000;
+  width: 100%;
+  align-self: flex-start;
+  font-family: consolas;
+  text-shadow: 0 0 0.5rem rgb(113, 234, 255), 0 0 2rem rgb(113, 234, 255),
+    0 0 4rem rgb(113, 234, 255);
+  z-index: 0;
+  padding: 1rem 1rem 1rem 1rem;
+  position: absolute;
+}
+
+#inferior > div {
+  width: 20rem;
+}
+
+/* #inferior > a {
     width: 20rem;
   } */
-  
-  #powerup-img {
-    width: 4rem;
-  }
+
+#powerup-img {
+  width: 4rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  transition: opacity 500ms;
+  background: rgba(0, 0, 0, 0.8);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.container-neon {
+  border-style: solid;
+  border-width: 0.5rem;
+  border-radius: 10px;
+  border-color: #7172af;
+  box-shadow: 0 0 0.5rem #7172af, 0 0 2rem #7172af, 0 0 4rem #7172af;
+  font-family: consolas;
+  text-shadow: 0 0 0.5rem rgb(113, 234, 255), 0 0 2rem rgb(113, 234, 255),
+    0 0 4rem rgb(113, 234, 255);
+  padding: 2.4rem;
+  color: #fff;
+  width: 35rem;
+  background-color: #1a0321;
+  text-align: center;
+}
+
+.container-neon h3 {
+  color: rgb(113, 234, 255);
+  margin-bottom: 1.5rem;
+}
+
+.close {
+  text-decoration: none;
+  position: absolute;
+  margin: 0.2rem 1.5rem 0rem 0rem;
+}
+
+.btn-neon {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #fff;
+  letter-spacing: 4px;
+  text-decoration: none;
+  font-size: 24px;
+  overflow: hidden;
+  transition: 0.2s;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.btn-neon:hover {
+  background: #7172af;
+  box-shadow: 0 0 10px #7172af, 0 0 40px #7172af, 0 0 80px #7172af;
+  transition-delay: 1s;
+}
+.btn-neon span {
+  position: absolute;
+  display: block;
+}
+#span1 {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7172af);
+}
+.btn-neon:hover #span1 {
+  left: 100%;
+  transition: 1s;
+}
+#span3 {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #7172af);
+}
+.btn-neon:hover #span3 {
+  right: 100%;
+  transition: 1s;
+  transition-delay: 0.5s;
+}
+#span2 {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #7172af);
+}
+.btn-neon:hover #span2 {
+  top: 100%;
+  transition: 1s;
+  transition-delay: 0.25s;
+}
+#span4 {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #7172af);
+}
+.btn-neon:hover #span4 {
+  bottom: 100%;
+  transition: 1s;
+  transition-delay: 0.75s;
+}
+
+#modalSubmitScore > div {
+  height: 50rem;
+  width: 50rem;
+}
+
+#modalPlayerScore {
+  margin-bottom: 5rem;
+}
