@@ -37,7 +37,7 @@
           <span id="span4"></span>
           MODO TIEMPO
         </a>
-        <a href="puntuaciones.html" class="btn-neon">
+        <a href="puntuaciones.php" class="btn-neon">
           <span id="span1"></span>
           <span id="span2"></span>
           <span id="span3"></span>
@@ -77,7 +77,10 @@
           <span id="span4"></span>
           CARRERAS (MULTIJUGADOR)
         </a>
-        <a href="https://twitter.com/intent/tweet?text=Mira%20como%20me%20divierto%20en%20este%20juego%20JUEGA%20CRAZYDRIVER" class="btn-neon">
+        <a
+          href="https://twitter.com/intent/tweet?text=Mira%20como%20me%20divierto%20en%20este%20juego%20JUEGA%20CRAZYDRIVER"
+          class="btn-neon"
+        >
           <span id="span1"></span>
           <span id="span2"></span>
           <span id="span3"></span>
@@ -134,6 +137,7 @@
     <script>
       function ingresarDatos(players, redirection) {
         $("#modalPlayerData").html("");
+        localStorage.setItem("isPaused", false);
         var content = "";
 
         if (players == 1) {
@@ -189,7 +193,7 @@
         localStorage.setItem("playerName1", playerName1);
         localStorage.setItem("playerName2", playerName2);
 
-        window.location.href = redirection + ".html";
+        window.location.href = redirection + ".php";
       }
     </script>
 
@@ -200,33 +204,36 @@
     ></script>
 
     <script>
-      window.fbAsyncInit = function() {
+      window.fbAsyncInit = function () {
         FB.init({
-          appId            : '639285784292465',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v16.0'
+          appId: "639285784292465",
+          autoLogAppEvents: true,
+          xfbml: true,
+          version: "v16.0",
         });
-FB.api(
-  "6095824793840610/posts",
-  "GET",
+        FB.api(
+          "6095824793840610/posts",
+          "GET",
           {
             access_token:
               "EAAJFbVIVLHEBAMHJJxwZAkD2uvA0bzQoOYZBc5ZBL6BJK9kdm2spbHOPFVGBbYNkP1NbvLR7AxtQZC5VZCSsD7DZCteTOtHvls318diZAQiyxipThZBftUsnOJKUxueCNPBU0vvhr1zRcCP0eZCvFIFUhRXsSzC809Q3BkC5oKZCRG6Yn4imZBKeJwfur0K5ZCkJmiHqzUjJIDOMg3lcfzGOWkGFFZCS2TPFAyhoGsS1HULTcXWMWH7gJmS7E",
           },
-  function (response){
-    if (response && !response.error){
-      /*handle the result*/
-      console.log(response);
-    }else{
-      console.error('error', response.error);
-    }
-  });
-
+          function (response) {
+            if (response && !response.error) {
+              /*handle the result*/
+              console.log(response);
+            } else {
+              console.error("error", response.error);
+            }
+          }
+        );
       };
     </script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-  
-
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js"
+    ></script>
   </body>
 </html>

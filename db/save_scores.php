@@ -34,7 +34,7 @@ if ($_POST) {
 
 
         $result = mysqli_query($con, $sql);
-        header("index.html");
-        exit();
+        //header("index.html");
+        //exit();
     }
 }
